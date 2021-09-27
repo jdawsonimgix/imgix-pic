@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import Imgix from "react-imgix";
+import { buildURL } from "react-imgix";
+import React, { useState } from "react";
+import PIC_DATA from './pic_data.js';
 
-function App() {
+export default function App() {
+  const [borderSelected, borderFunction] = useState(
+    buildURL("https://jdawsons3.imgix.net/vapor-cat-1.jpeg", {
+      q:  PIC_DATA.q,
+      border: PIC_DATA.border
+    })
+  );
+
+  const updateBorder = (word) => {
+    if (word === "bold") {
+      //borderFunction(borderSelected + "border=20,000000");
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {PIC_DATA.q}
+      <h4>
+        Here is an example on how imgix can be used for creating borders and
+        cropping
+      </h4>
+
+      <Imgix src={borderSelected} width={300} height={300} />
+      <button onClick={() => updateBorder("bold")}>Bold</button>
     </div>
   );
 }
-
-export default App;
