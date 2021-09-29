@@ -4,58 +4,25 @@ import React, { useState } from "react";
 import PIC_DATA from './pic_data.js';
 
 export default function App() {
-  const [borderSelected, borderFunction] = useState(
-    buildURL("https://jdawsons3.imgix.net/vapor-cat-1.jpeg", {
+
+const [borderClassic, borderClassicFunction] = useState(
+    buildURL(PIC_DATA.pic_url, {
       q:  PIC_DATA.q,
-      bg: PIC_DATA.bg,
-      border: PIC_DATA.border,
-      pad: PIC_DATA.pad
+      bg: PIC_DATA.border_classic.bg,
+      border: PIC_DATA.border_classic.border,
+      pad: PIC_DATA.border_classic.pad
     })
   );
 
-  /*
-    "q": "65", 
-    "bg": "C9E5ED",
-    "border": "10,000000",
-    "pad": "35",
-  */
+  const [borderBold, borderBoldFunction] = useState(
+    buildURL(PIC_DATA.pic_url, {
+      q:  PIC_DATA.q,
+      bg: PIC_DATA.border_bold.bg,
+      border: PIC_DATA.border_bold.border,
+      pad: PIC_DATA.border_bold.pad
+    })
+  );
 
-  const updateBorder = (word) => {
-    if (word === "classic") {
-      borderFunction(
-      buildURL("https://jdawsons3.imgix.net/vapor-cat-1.jpeg", {
-        q:  PIC_DATA.q,
-        bg: "C9E5ED",
-        border: "10,000000",
-        pad: "35"
-      })
-      )
-    }
-
-    if (word === "bold") {
-      borderFunction(
-      buildURL("https://jdawsons3.imgix.net/vapor-cat-1.jpeg", {
-        q:  PIC_DATA.q,
-        bg: "C9E5ED",
-        border: "10,000000",
-        pad: "0"
-      })
-      )
-    }
-
-    if (word === "ever") {
-      borderFunction(
-      buildURL("https://jdawsons3.imgix.net/vapor-cat-1.jpeg", {
-        q:  PIC_DATA.q,
-        bg: "C9E5ED",
-        border: "10,FFFFFF",
-        pad: "65"
-      })
-      )
-    }
-
-
-  };
 
   return (
     <div className="App">
@@ -64,10 +31,26 @@ export default function App() {
         cropping
       </h4>
 
-      <Imgix src={borderSelected} width={300} height={300} />
-      <button onClick={() => updateBorder("classic")}>Classic</button>
-      <button onClick={() => updateBorder("bold")}>Bold</button>
-      <button onClick={() => updateBorder("ever")}>Ever</button>
+      <div class="row">
+         <div class="column">
+           <Imgix src={borderClassic} width={300} height={300}/>
+           <div class="column" >Classic</div>
+         </div>
+          <div class="column">
+          <Imgix src={borderBold} width={300} height={300} />
+          <div class="column">Bold</div>
+        </div>
+          <div class="column">
+          <Imgix src={borderBold} width={300} height={300} />
+          <div class="column">Everclear (pending)</div>
+      </div>
+  </div>
+
+      {/* <Imgix src={borderClassic} width={300} height={300}/>
+      <Imgix src={borderBold} width={300} height={300} /> */}
+
+   
     </div>
   );
 }
+
